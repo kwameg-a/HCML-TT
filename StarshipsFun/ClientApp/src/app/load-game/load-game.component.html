@@ -1,0 +1,128 @@
+<p *ngIf="starships.length < 1" class="loader"></p>
+
+<div class="row" *ngIf="starships.length > 0">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h2>Starship cards to hand: <span>{{ starships.length }}</span></h2>
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h4>Human User (Cards in hand: <span>{{ userStarships.length }}</span>)</h4>
+            <button id="shuffle-userStarships"
+                    class="btn btn-info btn-block"
+                    (click)="shuffleUserStarshipsPlayHand()"
+                    [disabled]="isGameOver">
+              Shuffle deck
+            </button>
+            <button id="userPlayHandButton"
+                    class="btn btn-info btn-block"
+                    (click)="userPlayHand()"
+                    [disabled]="isGameOver || (!currentUserStarship && !currentComputerStarship && player === 'computer')">
+              Play a hand
+            </button>
+            <div *ngIf="currentUserStarship">
+              <table class="table table-bordered text-center">
+                <tr><td colspan="2"><img src="/images/starship.gif" class="starship-img" /></td></tr>
+                <tr><td>Credits</td><td>{{ currentUserStarship.costInCredits }}</td></tr>
+                <tr><td>Rating</td><td>{{ currentUserStarship.hyperdriveRating }}</td></tr>
+                <tr><td>Speed</td><td>{{ currentUserStarship.topSpeedInMegalights }}</td></tr>
+                <tr><td>Films</td><td>{{ currentUserStarship.films.length }}</td></tr>
+                <tr><td>Crew</td><td>{{ currentUserStarship.crewRequired }}</td></tr>
+              </table>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <h4>Computer (Cards in hand: <span>{{ computerStarships.length }}</span>)</h4>
+            <button id="shuffle-computerStarships"
+                    class="btn btn-info btn-block"
+                    (click)="shuffleComputerStarshipsPlayHand()"
+                    [disabled]="isGameOver">
+              Shuffle deck
+            </button>
+            <button id="comPlayHandButton"
+                    class="btn btn-info btn-block"
+                    (click)="computerPlayHand()"
+                    [disabled]="currentUserStarship && !chooseAttributeForm.valid || isGameOver || (!currentUserStarship && !currentComputerStarship && player === 'user')">
+              Play a hand
+            </button>
+            <div *ngIf="currentComputerStarship">
+              <table class="table table-condensed table-bordered text-center">
+                <tr><td colspan="2"><img src="/images/starship.gif" class="starship-img" /></td></tr>
+                <tr><td>Credits</td><td>{{ currentComputerStarship.costInCredits }}</td></tr>
+                <tr><td>Rating</td><td>{{ currentComputerStarship.hyperdriveRating }}</td></tr>
+                <tr><td>Speed</td><td>{{ currentComputerStarship.topSpeedInMegalights }}</td></tr>
+                <tr><td>Films</td><td>{{ currentComputerStarship.films.length }}</td></tr>
+                <tr><td>Crew</td><td>{{ currentComputerStarship.crewRequired }}</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-footer text-center" *ngIf="currentUserStarship || currentComputerStarship">
+        <!-- Attribute Form -->
+        <form [formGroup]="chooseAttributeForm"
+              (ngSubmit)="revealOutcome()"
+              novalidate>
+
+          <div class="form-group">
+
+            <span class="badge badge-warning">Please note: unknown or n/a attibute values translate to "0" values in outcomes</span><br />
+
+            <div class="form-check-inline">
+              <label class="form-check-label" for="credits">
+                <input type="radio" class="form-check-input" name="gameAttribute" value="credits" formControlName="gameAttribute">Credits
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="rating">
+                <input type="radio" class="form-check-input" name="gameAttribute" value="rating" formControlName="gameAttribute">Rating
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="speed">
+                <input type="radio" class="form-check-input" name="gameAttribute" value="speed" formControlName="gameAttribute">Speed
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="films">
+                <input type="radio" class="form-check-input" name="gameAttribute" value="films" formControlName="gameAttribute">Films
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label" for="crew">
+                <input type="radio" class="form-check-input" name="gameAttribute" value="crew" formControlName="gameAttribute">Crew
+              </label>
+            </div>
+            <div class="alert alert-danger" *ngIf="!chooseAttributeForm.valid">Select an attribute to play from, and play the other hand.</div>
+            <div class="form-group" *ngIf="currentUserStarship && currentComputerStarship">
+              <button type="submit"
+                      class="btn btn-info btn-block"
+                      [disabled]="!chooseAttributeForm.valid">
+                {{ chooseAttributeForm.valid ? 'Reveal outcome' : 'Select an attribute to play from' }}
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Game Winner Alert -->
+    <div class="alert alert-info" *ngIf="isGameOver">
+      <h1>{{ gameWinnerMessage }}</h1>
+      <button class="btn btn-block btn-info" (click)="newGame()">Start new game</button>
+    </div>
+
+    <!-- Modal -->
+    <div class="message-modal" *ngIf="outComeRevealed || isDrawOutcome">
+      <div class="message-modal-content">
+        <h4>Hand {{ outComeRevealed ? 'Winner Outcome!' : 'Draw Outcome' }}!</h4>
+        <p> {{ outComeRevealed ? handWinnerMessage : 'Please reshuffle and play the hand again' }}</p>
+        <button class="btn btn-info" (click)="outComeRevealed ? confirmOutCome() : reShuffleAndPlayHandAgain()">
+          {{ outComeRevealed ? 'Confirm outcome and play next hand' : 'OK' }}
+        </button>
+      </div>
+    </div>    
+  </div>
+</div>
