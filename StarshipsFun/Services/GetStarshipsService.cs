@@ -10,14 +10,14 @@ using System.Threading.Tasks;
 
 namespace StarshipsFun.Services
 {
-    public class GetStartshipsService : IGetStartshipsService
+    public class GetStarshipsService : IGetStarshipsService
     {
         private const string _startshipsCacheKey = "cachedStarships";
         private readonly IMemoryCache _cache;
         private readonly HttpClient _httpClient;
         private readonly StarWarsApiConfig _starWarsApiConfig;
 
-        public GetStartshipsService(
+        public GetStarshipsService(
             IMemoryCache cache,
             HttpClient httpClient,
             IOptionsMonitor<StarWarsApiConfig> starWarsApiConfig)

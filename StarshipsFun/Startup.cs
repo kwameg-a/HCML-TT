@@ -27,7 +27,7 @@ namespace StarshipsFun
             });
             services.AddMemoryCache();
             services.Configure<StarWarsApiConfig>(Configuration.GetSection("StarWarsApiConfig"));
-            services.AddHttpClient<IGetStartshipsService, GetStartshipsService>();
+            services.AddHttpClient<IGetStarshipsService, GetStarshipsService>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

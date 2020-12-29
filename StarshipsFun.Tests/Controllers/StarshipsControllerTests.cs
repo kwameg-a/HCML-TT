@@ -13,11 +13,11 @@ namespace StarshipsFun.Tests.Controllers
 {
     public class StarshipsControllerTests
     {
-        private readonly Mock<IGetStartshipsService> _mockService;
+        private readonly Mock<IGetStarshipsService> _mockService;
 
         public StarshipsControllerTests()
         {
-           _mockService =  new Mock<IGetStartshipsService>();
+           _mockService =  new Mock<IGetStarshipsService>();
         }
 
         [Fact]

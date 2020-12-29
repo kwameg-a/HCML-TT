@@ -10,11 +10,11 @@ namespace StarshipsFun.Controllers
     [Route("[controller]")]
     public class StarshipsController : ControllerBase
     {
-        private readonly IGetStartshipsService _getStartshipsService;
+        private readonly IGetStarshipsService _getStarshipsService;
 
-        public StarshipsController(IGetStartshipsService getStartshipsService) => _getStartshipsService = getStartshipsService;
+        public StarshipsController(IGetStarshipsService getStarshipsService) => _getStarshipsService = getStarshipsService;
 
         [HttpGet]
-        public Task<IList<Starship>> Get() => _getStartshipsService.ExecuteAsync();
+        public Task<IList<Starship>> Get() => _getStarshipsService.ExecuteAsync();
     }
 }

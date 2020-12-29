@@ -48,7 +48,7 @@ namespace StarshipsFun.Tests.Services
                 BaseAddress = new Uri("http://test.com/"),
             };
 
-            var service = new GetStartshipsService(memoryCache, httpClient, _mockOptionsMonitor.Object);
+            var service = new GetStarshipsService(memoryCache, httpClient, _mockOptionsMonitor.Object);
 
             // Act
             var result = await service.ExecuteAsync(); ;
