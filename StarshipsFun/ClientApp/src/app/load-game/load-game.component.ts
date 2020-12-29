@@ -18,12 +18,12 @@ export class LoadGameComponent implements OnInit {
   currentUserStarship: IStarship = null;
   computerStarships: IStarship[] = [];
   currentComputerStarship: IStarship = null;
-  player: string = '';
-  outComeRevealed: boolean = false;
-  isDrawOutcome: boolean = false;
-  isGameOver: boolean = false;
-  handWinnerMessage: string = '';
-  gameWinnerMessage: string = '';
+  player = '';
+  outComeRevealed = false;
+  isDrawOutcome = false;
+  isGameOver = false;
+  handWinnerMessage = '';
+  gameWinnerMessage = '';
 
   constructor(
     private fb: FormBuilder,
@@ -51,10 +51,10 @@ export class LoadGameComponent implements OnInit {
       this.computerStarships = this.starships.slice(starshipsAllocation);
       this.presentFirstPlayerCard();
     }, error => console.error(error));
-  };
+  }
 
   presentFirstPlayerCard(): void {
-    if (this.player === "user") {
+    if (this.player === 'user') {
       this.userPlayHand();
     } else {
       this.computerPlayHand();
@@ -62,18 +62,18 @@ export class LoadGameComponent implements OnInit {
   }
 
   shuffleUserStarshipsPlayHand(): void {
-    this.shuffleCards(this.userStarships, "Human's deck shuffled");
+    this.shuffleCards(this.userStarships, 'Human\'s deck shuffled');
   }
   userPlayHand(): void {
-    this.currentUserStarship = this.userStarships[this.userStarships.length - 1]
+    this.currentUserStarship = this.userStarships[this.userStarships.length - 1];
   }
 
   shuffleComputerStarshipsPlayHand(): void {
-    this.shuffleCards(this.computerStarships, "Computer's deck shuffled");
+    this.shuffleCards(this.computerStarships, 'Computer\'s deck shuffled');
   }
   computerPlayHand(): void {
     this.currentComputerStarship = this.computerStarships[this.computerStarships.length - 1];
-    if (this.player === "computer") {
+    if (this.player === 'computer') {// this ensures the attribute isn't reset when the player query string is 'user'
       const gameAttributes = ['credits', 'speed', 'rating', 'films', 'crew'];
       const attribute = gameAttributes[Math.floor(Math.random() * gameAttributes.length)];
       this.chooseAttributeForm.controls.gameAttribute.setValue(attribute);
@@ -83,64 +83,64 @@ export class LoadGameComponent implements OnInit {
   revealOutcome(): void {
     this.isDrawOutcome = false;
 
-    let userCards = this.userStarships;
-    let currentUserCard = this.currentUserStarship;
+    const userCards = this.userStarships;
+    const currentUserCard = this.currentUserStarship;
 
-    let computerCards = this.computerStarships;
-    let currentComputerCard = this.currentComputerStarship;
+    const computerCards = this.computerStarships;
+    const currentComputerCard = this.currentComputerStarship;
 
-    var selectedAttribute = this.chooseAttributeForm.get('gameAttribute').value;
+    const selectedAttribute = this.chooseAttributeForm.get('gameAttribute').value;
     switch (selectedAttribute) {
-      case "credits":
+      case 'credits':
         if (this.getNumber(currentUserCard.costInCredits) > this.getNumber(currentComputerCard.costInCredits)) {
-          this.handWinnerMessage = "Human user wins hand for a higher Cost in Credits";
+          this.handWinnerMessage = 'Human user wins hand for a higher Cost in Credits';
           this.popCardFromComputerAndAddToUser(computerCards, userCards, currentComputerCard);
         } else if (this.getNumber(currentUserCard.costInCredits) < this.getNumber(currentComputerCard.costInCredits)) {
-          this.handWinnerMessage = "Computer wins hand for a higher Cost in Credits";
+          this.handWinnerMessage = 'Computer wins hand for a higher Cost in Credits';
           this.popCardFromUserAndAddToComputer(userCards, computerCards, currentUserCard);
         } else {
           this.isDrawOutcome = true;
         }
         break;
-      case "rating":
+      case 'rating':
         if (this.getNumber(currentUserCard.hyperdriveRating) < this.getNumber(currentComputerCard.hyperdriveRating)) {
-          this.handWinnerMessage = "Human user wins hand for a lower Hyperdrive Rating";
+          this.handWinnerMessage = 'Human user wins hand for a lower Hyperdrive Rating';
           this.popCardFromComputerAndAddToUser(computerCards, userCards, currentComputerCard);
         } else if (this.getNumber(currentUserCard.hyperdriveRating) > this.getNumber(currentComputerCard.hyperdriveRating)) {
-          this.handWinnerMessage = "Computer wins hand for a lower Hyperdrive Rating";
+          this.handWinnerMessage = 'Computer wins hand for a lower Hyperdrive Rating';
           this.popCardFromUserAndAddToComputer(userCards, computerCards, currentUserCard);
         } else {
           this.isDrawOutcome = true;
         }
         break;
-      case "speed":
+      case 'speed':
         if (this.getNumber(currentUserCard.topSpeedInMegalights) > this.getNumber(currentComputerCard.topSpeedInMegalights)) {
-          this.handWinnerMessage = "Human user wins hand for a higher Top Speed in Megalights";
+          this.handWinnerMessage = 'Human user wins hand for a higher Top Speed in Megalights';
           this.popCardFromComputerAndAddToUser(computerCards, userCards, currentComputerCard);
         } else if (this.getNumber(currentUserCard.topSpeedInMegalights) < this.getNumber(currentComputerCard.topSpeedInMegalights)) {
-          this.handWinnerMessage = "Computer wins hand for a higher Top Speed in Megalights";
+          this.handWinnerMessage = 'Computer wins hand for a higher Top Speed in Megalights';
           this.popCardFromUserAndAddToComputer(userCards, computerCards, currentUserCard);
         } else {
           this.isDrawOutcome = true;
         }
         break;
-      case "films":
+      case 'films':
         if (currentUserCard.films.length > currentComputerCard.films.length) {
-          this.handWinnerMessage = "Human user wins hand for a higher Number of films";
+          this.handWinnerMessage = 'Human user wins hand for a higher Number of films';
           this.popCardFromComputerAndAddToUser(computerCards, userCards, currentComputerCard);
         } else if (currentUserCard.films.length < currentComputerCard.films.length) {
-          this.handWinnerMessage = "Computer wins hand for a higher Number of films";
+          this.handWinnerMessage = 'Computer wins hand for a higher Number of films';
           this.popCardFromUserAndAddToComputer(userCards, computerCards, currentUserCard);
         } else {
           this.isDrawOutcome = true;
         }
         break;
-      case "crew":
+      case 'crew':
         if (this.getNumber(currentUserCard.crewRequired) < this.getNumber(currentComputerCard.crewRequired)) {
-          this.handWinnerMessage = "Human user wins hand for a lower Crew Required";
+          this.handWinnerMessage = 'Human user wins hand for a lower Crew Required';
           this.popCardFromComputerAndAddToUser(computerCards, userCards, currentComputerCard);
         } else if (this.getNumber(currentUserCard.crewRequired) > this.getNumber(currentComputerCard.crewRequired)) {
-          this.handWinnerMessage = "Computer wins hand for a lower Crew Required";
+          this.handWinnerMessage = 'Computer wins hand for a lower Crew Required';
           this.popCardFromUserAndAddToComputer(userCards, computerCards, currentUserCard);
         } else {
           this.isDrawOutcome = true;
@@ -148,15 +148,15 @@ export class LoadGameComponent implements OnInit {
         break;
     }
 
-    if (!this.isDrawOutcome) this.outComeRevealed = true;
+    if (!this.isDrawOutcome) { this.outComeRevealed = true; }
   }
 
   reShuffleAndPlayHandAgain(): void {
     this.isDrawOutcome = false;
     this.currentComputerStarship = null;
     this.currentUserStarship = null;
-    this.shuffleCards(this.userStarships, "");
-    this.shuffleCards(this.computerStarships, "");
+    this.shuffleCards(this.userStarships, '');
+    this.shuffleCards(this.computerStarships, '');
     this.presentFirstPlayerCard();
   }
 
@@ -187,16 +187,16 @@ export class LoadGameComponent implements OnInit {
       cards[i] = cards[j];
       cards[j] = temp;
     }
-    if (message !== '') alert(message)
+    if (message !== '') { alert(message); }
   }
 
   endGame(userCards: IStarship[], computerCards: IStarship[]): void {
     if (userCards.length < 1 || computerCards.length < 1) {
       let message = '';
       if (userCards.length > computerCards.length) {
-        message = "Human WINS!!"
+        message = 'Human WINS!!';
       } else {
-        message = "Computer WINS!!"
+        message = 'Computer WINS!!';
       }
       this.gameWinnerMessage = `Game Over! ${message}`;
       this.isGameOver = true;

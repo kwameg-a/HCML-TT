@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Router } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -15,7 +15,7 @@ const appRoutes = [
   { path: '', component: GameHomeComponent, pathMatch: 'full' },
   { path: 'game-setup', component: GameSetupComponent },
   { path: 'load-game', component: LoadGameComponent },
-]
+];
 
 @NgModule({
   declarations: [

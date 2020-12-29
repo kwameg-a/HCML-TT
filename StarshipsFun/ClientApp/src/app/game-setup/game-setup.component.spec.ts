@@ -1,6 +1,6 @@
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { Location } from "@angular/common";
-import { RouterTestingModule } from "@angular/router/testing";
+import { Location } from '@angular/common';
+import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
 
 import { GameSetupComponent } from './game-setup.component';
@@ -33,6 +33,6 @@ describe('GameSetupComponent', () => {
   it('loadGame() when called should navigate to LoadGameComponent', fakeAsync(() => {
     component.loadGame();
     expect(router.navigate).toHaveBeenCalledWith(['/load-game']);
-    expect(location.path()).toBe("/load-game");
+    expect(location.path()).toBe('/load-game');
   }));
 });

@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 })
 export class GameHomeComponent {
 
-  constructor(private router: Router) { }  
+  constructor(private router: Router) { }
 
   goToGameSetup() {
     this.router.navigate(['/game-setup']);

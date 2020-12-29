@@ -12,8 +12,4 @@ export class SharedService {
   getStarships() {
     return this.http.get<IStarship[]>(this.baseUrl + 'starships');
   }
-
-  getShuffledStarships() {
-    return this.http.get<IStarship[]>(this.baseUrl + 'starships/load');
-  }
 }
