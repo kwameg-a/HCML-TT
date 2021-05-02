@@ -45,6 +45,7 @@ export class LoadGameComponent implements OnInit {
 
   getStarships(): void {
     this.service.getStarships().subscribe(starships => {
+    //this.service.getAllStarships().subscribe(starships => {
       this.starships = starships;
       const starshipsAllocation = this.starships.length * 0.5;
       this.userStarships = this.starships.slice(0, starshipsAllocation);

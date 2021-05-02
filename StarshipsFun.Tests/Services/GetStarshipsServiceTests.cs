@@ -20,12 +20,10 @@ namespace StarshipsFun.Tests.Services
 {
     public class GetStarshipsServiceTests
     {
-        private readonly Mock<IHttpClientFactory> _mockHttpClientFactory;
         private readonly Mock<IOptionsMonitor<StarWarsApiConfig>> _mockOptionsMonitor;
 
         public GetStarshipsServiceTests()
         {
-            _mockHttpClientFactory = new Mock<IHttpClientFactory>();
             _mockOptionsMonitor = new Mock<IOptionsMonitor<StarWarsApiConfig>>();            
         }
 

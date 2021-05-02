@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using StarshipsFun.Infrastructure;
 using StarshipsFun.Models;
 using StarshipsFun.Services;
+using StarshipsFun.Services.Helpers;
 
 namespace StarshipsFun
 {
@@ -27,7 +30,12 @@ namespace StarshipsFun
             });
             services.AddMemoryCache();
             services.Configure<StarWarsApiConfig>(Configuration.GetSection("StarWarsApiConfig"));
-            services.AddHttpClient<IGetStarshipsService, GetStarshipsService>();
+            
+            services.AddHttpClient<IStarshipsServiceClient, StarshipsServiceClient>();
+            services.AddSingleton<IGetAllStarshipsService, GetAllStarshipsService>();
+            services.AddSingleton<IGetStarshipsService, GetStarshipsService>();
+
+            services.AddLogging();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,6 +62,7 @@ namespace StarshipsFun
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
         }
     }
 }

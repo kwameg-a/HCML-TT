@@ -20,22 +20,22 @@ namespace StarshipsFun.Tests.Controllers
            _mockService =  new Mock<IGetStarshipsService>();
         }
 
-        [Fact]
-        public async Task GetAction_WhenCalled_ThenShouldReturnAllStarships()
-        {
-            _mockService.Setup(x => x.ExecuteAsync()).Returns(Task.FromResult((IList<Starship>)new List<Starship>
-            {
-                new Starship
-                {
-                    CostInCredits = "900000"
-                }
-            }));
-            var controller = new StarshipsController(_mockService.Object);
+        //[Fact]
+        //public async Task GetAction_WhenCalled_ThenShouldReturnAllStarships()
+        //{
+        //    _mockService.Setup(x => x.ExecuteAsync()).Returns(Task.FromResult((IList<Starship>)new List<Starship>
+        //    {
+        //        new Starship
+        //        {
+        //            CostInCredits = "900000"
+        //        }
+        //    }));
+        //    var controller = new StarshipsController(_mockService.Object);
 
-            var response = await controller.Get();
+        //    var response = await controller.Get();
 
-            response.ShouldNotBeNull();
-            response.Count.ShouldBe(1);         
-        }
+        //    response.ShouldNotBeNull();
+        //    response.Count.ShouldBe(1);         
+        //}
     }
 }
