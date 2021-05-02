@@ -4,11 +4,9 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using StarshipsFun.Infrastructure;
 using StarshipsFun.Models;
 using StarshipsFun.Services;
-using StarshipsFun.Services.Helpers;
 
 namespace StarshipsFun
 {
