@@ -26,7 +26,7 @@ namespace StarshipsFun.Services
             _starShipsServiceClient = starShipsServiceClient;
         }
 
-        public async Task<IList<Starship>> ExecuteAsync()
+        public async ValueTask<IList<Starship>> ExecuteAsync()
         {
             if (!_cache.TryGetValue<List<Starship>>(_startshipsCacheKey, out var starships))
             {

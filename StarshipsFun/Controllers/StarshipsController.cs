@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using StarshipsFun.Models;
 using StarshipsFun.Services;
-using StarshipsFun.Services.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -23,9 +22,9 @@ namespace StarshipsFun.Controllers
         }
 
         [HttpGet]
-        public Task<IList<Starship>> Get() => _getStarshipsService.ExecuteAsync();
+        public ValueTask<IList<Starship>> Get() => _getStarshipsService.ExecuteAsync();
 
         [HttpGet("all")]
-        public Task<IList<Starship>> GetAllStarships() => _getAllStarshipsService.ExecuteAsync();
+        public ValueTask<IList<Starship>> GetAllStarships() => _getAllStarshipsService.ExecuteAsync();
     }
 }

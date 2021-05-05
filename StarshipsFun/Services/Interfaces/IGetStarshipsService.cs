@@ -6,6 +6,6 @@ namespace StarshipsFun.Services
 {
     public interface IGetStarshipsService
     {
-        Task<IList<Starship>> ExecuteAsync();
+        ValueTask<IList<Starship>> ExecuteAsync();
     }
 }
